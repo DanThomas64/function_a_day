@@ -23,4 +23,6 @@ Outputs:
 # List of Contents
 
 1. [01/01/2025] - A TUI text center function that will take any string and center it in a window of any given width.
-2. [02/02/2025] - A TUI text line decorator that will take any string and decorate around it. 
+2. [02/01/2025] - A TUI text function that will spilt down a long string to a vec of strings less than a given length. 
+3. [03/01/2025] - A TUI text function that will find the longest string length in a vec of strings. 
+4. [04/01/2025] - A TUI tool that will take a sting and create a pretty box around it as per a users inputs.  
