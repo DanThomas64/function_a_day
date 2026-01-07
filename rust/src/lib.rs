@@ -6,7 +6,7 @@
     Function Description:
         Centers a string in the middle of a terminal.
     What prompted this function:
-        I apparently rewrite this for every project. Might be useful to just 
+        I apparently rewrite this for every project. Might be useful to just
         have ready to go.
     Inputs:
         text - A String of text.
@@ -14,7 +14,7 @@
     Output:
         out - a string of lenth = term_width with the text centered within it.
 */
-/// Formats a String with the supplied text centered. 
+/// Formats a String with the supplied text centered.
 ///
 /// # Examples
 ///
@@ -30,12 +30,12 @@ pub fn str_center(text: &str, term_width: u16) -> String {
     let mut out = "".to_string();
     for _ in 1..=pre_len {
         out.push(' ')
-    };
+    }
     out.push_str(text);
     let int_len = out.len() as u16;
     for _ in int_len..term_width {
         out.push(' ')
-    };
+    }
     out
 }
 /*
@@ -44,7 +44,7 @@ pub fn str_center(text: &str, term_width: u16) -> String {
     Function Name:
         str_split_max
     Function Description:
-        Will split a string into as many lines as needed at a reasonable spot 
+        Will split a string into as many lines as needed at a reasonable spot
         dependant on the length of the string and a given value.
     What prompted this function:
         I think this is a better sized function than the one I was trying to write
@@ -55,7 +55,7 @@ pub fn str_center(text: &str, term_width: u16) -> String {
     Output:
         out - a vec of strings not exceeding the max_split_width.
 */
-/// Reduces a long string down to a number of strings that do no exceed a 
+/// Reduces a long string down to a number of strings that do no exceed a
 /// provided length/width.
 ///
 /// # Examples
@@ -63,13 +63,13 @@ pub fn str_center(text: &str, term_width: u16) -> String {
 /// ```
 /// let max_width = 12;
 /// let result = function_a_day::str_split_max(
-///     "The meaning of life is equal to 42", 
+///     "The meaning of life is equal to 42",
 ///     max_width
 /// );
 ///
 /// assert_eq!(result, vec!("The meaning", "of life is", "equal to 42"));
 /// ```
-pub fn str_split_max( text: &str, max_width: usize) -> Vec<String>{
+pub fn str_split_max(text: &str, max_width: usize) -> Vec<String> {
     let t_len = text.len();
     let mut out = Vec::new();
     let mut p_split_i = 0;
@@ -78,8 +78,7 @@ pub fn str_split_max( text: &str, max_width: usize) -> Vec<String>{
         if c.is_whitespace() {
             p_ws_i = i;
         }
-        if  i - p_split_i > max_width || i - p_ws_i > max_width {
-
+        if i - p_split_i > max_width || i - p_ws_i > max_width {
             out.push(text[p_split_i..p_ws_i].trim().to_string());
             p_split_i = p_ws_i;
         }
@@ -96,13 +95,13 @@ pub fn str_split_max( text: &str, max_width: usize) -> Vec<String>{
         Get the longest string in a vec of strings and then give the length
     What prompted this function:
         Need to get something done today as clearly I am not going to complete
-        the multibox today. 
+        the multibox today.
     Inputs:
         vec - A vec of Strings.
     Output:
         out - Int of the longest string
 */
-/// Reduces a long string down to a number of strings that do no exceed a 
+/// Reduces a long string down to a number of strings that do no exceed a
 /// provided length/width.
 ///
 /// # Examples
@@ -110,7 +109,7 @@ pub fn str_split_max( text: &str, max_width: usize) -> Vec<String>{
 /// ```
 /// let max_width = 12;
 /// let vec = function_a_day::str_split_max(
-///     "The meaning of life is equal to 42", 
+///     "The meaning of life is equal to 42",
 ///     max_width
 /// );
 /// let result = function_a_day::longest_str_length(vec);
@@ -127,21 +126,63 @@ pub fn longest_str_length(strings: Vec<String>) -> usize {
     }
     out
 }
-
 /*
     Date:
-        04/01/2026
+        05/01/2026
+    Function Name:
+        normalize_str_len
+    Function Description:
+        for a vec of strings make the length of each string the same length
+    What prompted this function:
+        I am lazy and this seems like a quick one to bang out so that I can
+        do something else.
+    Inputs:
+        vec - A vec of Strings.
+        int - Optional length of the string
+    Output:
+        out - A vec of Strings.
+*/
+/// Reduces a long string down to a number of strings that do no exceed a
+/// provided length/width.
+///
+/// # Examples
+///
+/// ```
+/// let max_width = 12;
+/// let vec = function_a_day::str_split_max(
+///     "The meaning of life is equal to 42",
+///     max_width
+/// );
+/// let result = function_a_day::longest_str_length(vec);
+///
+/// assert_eq!(result, 11);
+/// ```
+pub fn normalize_str_len(strings: Vec<String>, request_len: usize) -> Vec<String> {
+    strings
+        .into_iter()
+        .map(|mut s| {
+            let len = request_len - s.len();
+            for _ in 0..len {
+                s.push(' ');
+            }
+            s
+        })
+        .collect()
+}
+/*
+    Date:
+        06/01/2026
     Function Name:
         str_multiline_box
     Function Description:
         Creates a box around a given line of text.
         The box will be made up of line chars by default but will be customizable
-        with an arg. 
+        with an arg.
         An optionally centered box will default to a ratio of 1/3/1.
-        An optionally filled box will have one line top and bottom of fill 
+        An optionally filled box will have one line top and bottom of fill
         character lines.
     What prompted this function:
-        I apparently rewrite this for every project. Might be useful to just 
+        I apparently rewrite this for every project. Might be useful to just
         have ready to go.
     Inputs:
         text - A String of text.
@@ -149,7 +190,7 @@ pub fn longest_str_length(strings: Vec<String>) -> usize {
     Output:
         out - a string of lenth = term_width with the text centered within it.
 */
-/// Formats a String with the supplied text centered. 
+/// Formats a String with the supplied text centered.
 ///
 /// # Examples
 ///
@@ -159,113 +200,146 @@ pub fn longest_str_length(strings: Vec<String>) -> usize {
 ///
 /// assert_eq!(result, "         foo        ");
 /// ```
-// pub enum StrMultilineStyles{
-//     Classic,
-//     Modern,
-//     Filled,
-//     Custom(StrMultilineStyle)
-// }
-// pub struct StrMultilineStyle {
-//     decorators: Vec<char>,
-//     text_centered: bool,
-//     filled: bool,
-//     filled_char: char,
-// }
-// #[derive(Default)]
-// impl StrMultilineStyles {
-//     fn get_style(self) -> StrMultilineStyle {
-//         match self {
-//             #[default]
-//             StrMultilineStyles::Classic => StrMultilineStyle {
-//                 decorators: vec!{'/', '\\', '\\', '/','=', '|'},
-//                 text_centered: true,
-//                 filled: false,
-//                 filled_char: ' '
-//             },
-//             StrMultilineStyles::Modern => StrMultilineStyle {
-//                 decorators: vec!{'*', '*', '*', '*','-', '|'},
-//                 text_centered: true,
-//                 filled: false,
-//                 filled_char: ' '
-//             },
-//             StrMultilineStyles::Filled => StrMultilineStyle {
-//                 decorators: vec!{'&', '&', '&', '&','&', '&'},
-//                 text_centered: false,
-//                 filled: true,
-//                 filled_char: '#'
-//             },
-//             StrMultilineStyles::Custom(data) => data
-//     }
-// }
-// pub fn str_multiline_box(
-//         text: &str,
-//         term_width: u16,
-//         centered: bool,
-//         style: Option<StrMultilineStyle>
-//     ) {
-//     let term_blk_size = term_width / 5;
-//     let text_blk_size = term_blk_size * 3 + term_width % 5;
-//     let mut formatted_text = text.str_split_max(text, text_blk_size - 2 );
-//     let mut out = "".to_string();
-//     let opts = if Some(style) {
-//         style.get_style();
-//     } else {
-//         style.default()
-//     };
-//     if opts.centered {
-//         formatted_text = formatted_text
-//             .iter()
-//             .map( |l| str_center(l, term_width))
-//             .collect();
-//     }
-//     // If filled then fill first line with fill characters
-//     if opts.filled {
-//         for _ in 0..term_width {
-//             out.push(opts.filled_char);
-//             out.push_str("\\\n");
-//         };
-//     };
-//     // Top line of the box
-//     if centered {
-//         for _ in 1..term_blk_size {
-//             out.push(opts.filled_char);
-//         };
-//     };
-//     // Top left corner decorator
-//     out.push(opts.decorators.get(0));
-//     // Top line of the box
-//     if centered {
-//         for _ in start..term_width {
-//             out.push(opts.decorators.get(4));
-//         };
-//     };
-//     out.push(opts.decorators.get(4));
-//     if centered {
-//         for _ in 1..term_blk_size {
-//             out.push(opts.filled_char);
-//         };
-//     };
-//     // If centered then first 1/5 gets filled with fill char plus one space
-//     // else is first 1 char is filled and then rest is text and post fill.
-//     for line in formatted_text {
-//         if centered {
-//             for _ in 1..term_blk_size {
-//                 out.push(opts.filled_char);
-//             };
-//         };
-//         out.push(opts.decorators.get(4));
-//         out.push(' ');
-//         out.push_str(line);
-//         out.push(' ');
-//         out.push(opts.decorators.get(4));
-//     };
-//
-//     out.push(opts.decorators.get(0));
-//     for _ in 2..text_blk_size {
-//         out.push();
-//     };
-//     out.push_str("\\\n");
-// }
+pub enum StrMultilineStyles {
+    Classic,
+    Modern,
+    Filled,
+    Custom(StrMultilineStyle),
+}
+pub struct StrMultilineStyle {
+    decorators: Vec<char>,
+    text_centered: bool,
+    filled: bool,
+    filled_char: char,
+}
+impl StrMultilineStyle {
+    pub fn new(d: Vec<char>, t: bool, f: bool, fc: char) -> StrMultilineStyle {
+        StrMultilineStyle {
+            decorators: d,
+            text_centered: t,
+            filled: f,
+            filled_char: fc,
+        }
+    }
+}
+impl StrMultilineStyles {
+    pub fn get_style(self) -> StrMultilineStyle {
+        match self {
+            StrMultilineStyles::Classic => StrMultilineStyle {
+                decorators: vec!['/', '\\', '\\', '/', '=', '|'],
+                text_centered: true,
+                filled: false,
+                filled_char: ' ',
+            },
+            StrMultilineStyles::Modern => StrMultilineStyle {
+                decorators: vec!['*', '*', '*', '*', '-', '|'],
+                text_centered: true,
+                filled: false,
+                filled_char: ' ',
+            },
+            StrMultilineStyles::Filled => StrMultilineStyle {
+                decorators: vec!['&', '&', '&', '&', '&', '&'],
+                text_centered: false,
+                filled: true,
+                filled_char: '#',
+            },
+            StrMultilineStyles::Custom(data) => data,
+        }
+    }
+}
+pub fn str_multiline_box(
+    text: &str,
+    term_width: u16,
+    centered: bool,
+    style: Option<StrMultilineStyle>,
+) -> String {
+    let term_blk_size = term_width / 5;
+    let text_blk_size = term_blk_size * 3 + term_width % 5;
+    let mut formatted_text = str_split_max(text, text_blk_size as usize);
+    formatted_text = normalize_str_len(formatted_text, text_blk_size as usize);
+    let mut out = "".to_string();
+    let opts = style.unwrap_or(StrMultilineStyles::Classic.get_style());
+    if opts.text_centered {
+        formatted_text = formatted_text
+            .iter()
+            .map(|l| str_center(l, term_blk_size * 3))
+            .collect();
+    }
+    // If filled then fill first line with fill characters
+    if opts.filled {
+        for _ in 0..term_width {
+            out.push(opts.filled_char);
+        }
+        out.push('\n');
+    };
+    // Top line of the box
+    if centered {
+        for _ in 0..term_blk_size - 2 {
+            out.push(opts.filled_char);
+        }
+    };
+    // Top left corner decorator
+    out.push(*opts.decorators.first().unwrap());
+    // Top line of the box
+    for _ in 0..(term_blk_size * 3) + 2 {
+        out.push(*opts.decorators.get(4).unwrap());
+    }
+    out.push(*opts.decorators.get(1).unwrap());
+    if centered {
+        for _ in 0..term_blk_size - 2 {
+            out.push(opts.filled_char);
+        }
+    };
+    out.push('\n');
+    // If centered then first 1/5 gets filled with fill char plus one space
+    // else is first 1 char is filled and then rest is text and post fill.
+    for line in formatted_text {
+        if centered {
+            for _ in 0..term_blk_size - 2 {
+                out.push(opts.filled_char);
+            }
+        };
+        out.push(*opts.decorators.get(5).unwrap());
+        out.push(' ');
+        out.push_str(line.as_str());
+        out.push(' ');
+        out.push(*opts.decorators.get(5).unwrap());
+        if centered {
+            for _ in 0..term_blk_size - 2 {
+                out.push(opts.filled_char);
+            }
+        };
+        out.push('\n');
+    }
+    // bottom line of the box
+    if centered {
+        for _ in 0..term_blk_size - 2 {
+            out.push(opts.filled_char);
+        }
+    };
+    // Bottom left corner decorator
+    out.push(*opts.decorators.get(2).unwrap());
+    // Bottom line of the box
+    for _ in 0..(term_blk_size * 3) + 2 {
+        out.push(*opts.decorators.get(4).unwrap());
+    }
+    out.push(*opts.decorators.get(3).unwrap());
+    if centered {
+        for _ in 0..term_blk_size - 2 {
+            out.push(opts.filled_char);
+        }
+    };
+    out.push('\n');
+    // If filled then fill last line with fill characters
+    if opts.filled {
+        for _ in 0..term_width {
+            out.push(opts.filled_char);
+        }
+        out.push('\n');
+    };
+    out.push('\n');
+    out
+}
 
 #[cfg(test)]
 mod tests {
@@ -285,12 +359,56 @@ mod tests {
         let result = str_split_max("The quick brown fox jumped stupidly", 12);
         assert_eq!(result, vec!("The quick", "brown fox", "jumped", "stupidly"));
         let result = str_split_max("Take me home, country road, to the place I belong!!!", 16);
-        assert_eq!(result, vec!("Take me home,", "country road, to", "the place I", "belong!!!"));
+        assert_eq!(
+            result,
+            vec!(
+                "Take me home,",
+                "country road, to",
+                "the place I",
+                "belong!!!"
+            )
+        );
     }
     #[test]
     fn jan_3_2026() {
         let vec = str_split_max("The quick brown fox jumped stupidly", 12);
         let result = longest_str_length(vec);
         assert_eq!(result, 9);
+    }
+    #[test]
+    fn jan_5_2026() {
+        let vec = normalize_str_len(
+            vec![
+                "The quick".to_string(),
+                "brown fox".to_string(),
+                "jumped".to_string(),
+                "stupidly".to_string(),
+            ],
+            12,
+        );
+        assert_eq!(
+            vec,
+            vec!(
+                "The quick   ",
+                "brown fox   ",
+                "jumped      ",
+                "stupidly    "
+            )
+        );
+    }
+    #[test]
+    fn jan_6_2026() {
+        let string = str_multiline_box("The quick brown fox jumped stupidly", 60, true, None);
+        assert_eq!(
+            string,
+            [
+                "          /======================================\\          ",
+                "          | The quick brown fox jumped stupidly  |          ",
+                "          \\======================================/          ",
+                "",
+                ""
+            ]
+            .join("\n")
+        );
     }
 }
